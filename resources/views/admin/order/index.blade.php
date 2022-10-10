@@ -42,7 +42,7 @@
                                             <td>{{ $order->status }}</td>
                                             <td>USD {{ $order->total }}</td>
                                             <td>
-                                                <a href="">
+                                                <a href="{{ route('admin.order.show', $order) }}">
                                                     <button class="btn btn-info">
                                                         <i class="ml-1 fa fa-list-alt" aria-hidden="true"></i>
                                                     </button>
