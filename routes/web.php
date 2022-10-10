@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,7 +17,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // 
 
     Route::view('home', 'admin.dashboard.index')->name('dashboard');    
-
+    Route::resource('order', OrderController::class);
     
 });
 
