@@ -21,6 +21,9 @@
             <a class="app-menu__item active" href=""><i class="app-menu__icon fa fa-users  "></i>
                 <span class="app-menu__label">Users</span>
             </a>
+            <a class="app-menu__item active" href="{{ route('admin.products.index') }}"><i class=" app-menu__icon fa fa-product-hunt" aria-hidden="true"></i> 
+                <span class="app-menu__label"> Prodotti</span>
+            </a>
             {{-- {{ route('admin.user.index') }} --}}
             {{-- <a class="app-menu__item active" href="{{ route('admin.author.index') }}"><i class="app-menu__icon fa fa-id-card-o"></i>
                 <span class="app-menu__label">Author</span>
