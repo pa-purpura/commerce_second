@@ -22,7 +22,7 @@
                     </div>
                     <div class="table-responsive">
                         <table class="table">
-                            <thead>
+                            <thead class="text-center">
                                 <tr>
                                     <th>Id</th>
                                     <th>Immagine</th>
@@ -30,37 +30,37 @@
                                     <th>Descrizione</th>
                                     <th>Prezzo</th>
                                     <th>Stock</th>
-                                    <th></th>
+                                    <th>Azioni</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="text-center">
                                 @forelse ($products as $product)
                                     <tr>
-                                        <td>{{ $product->id }}</td>
-                                        <td>
+                                        <td class="align-middle">{{ $product->id }}</td>
+                                        <td class="align-middle">
                                             @if (!$product->img_path)
                                                 <img class="rounded border" src="{{ asset('storage/no_image.jpg') }}"
-                                                    alt="image" width="80">
+                                                    alt="no-image" width="80">
                                             @else
                                                 <img class="rounded border" src="{{ asset('storage') . '/' . $product->img_name }}"
-                                                    alt="p" width="80">
+                                                    alt="{{ $product->name }}" width="80">
                                             @endif
                                         </td>
-                                        <td>{{ $product->name }}</td>
-                                        <td>{{ Str::limit($product->description, 60) }}</td>
-                                        <td>{{ $product->price }} €</td>
-                                        <td>{{ $product->stock }}</td>
-                                        <td class="d-flex">
+                                        <td class="align-middle">{{ $product->name }}</td>
+                                        <td class="align-middle">{{ Str::limit($product->description, 60) }}</td>
+                                        <td class="align-middle">{{ $product->price }} €</td>
+                                        <td class="align-middle">{{ $product->stock }}</td>
+                                        <td class="d-flex justify-content-center">
                                             <a href="{{ route('admin.products.show', $product->id) }}">
-                                                <button class="btn btn-sm btn-info"><i class="fa fa-eye"
+                                                <button class="btn btn-sm btn-info mr-1"><i class="fa fa-eye"
                                                         aria-hidden="true"></i></button>
                                             </a>
                                             <a href="{{ route('admin.seeReviews', $product) }}">
-                                                <button class="btn btn-sm btn-info mx-2"><i class="fa fa-star"
+                                                <button class="btn btn-sm btn-info mr-1"><i class="fa fa-star"
                                                         aria-hidden="true"></i></button>
                                             </a>
                                             <a href="{{ route('admin.products.edit', $product->id) }}">
-                                                <button class="btn btn-sm btn-primary mx-2"><i class="fa fa-pencil-square-o"
+                                                <button class="btn btn-sm btn-primary mr-1"><i class="fa fa-pencil-square-o"
                                                         aria-hidden="true"></i></button>
                                             </a>
                                             <form action="{{ route('admin.products.destroy', $product->id) }}"

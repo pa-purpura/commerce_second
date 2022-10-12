@@ -5,18 +5,22 @@
         <div class="offset-md-3 col-md-5">
             <div class="tile">
                 <div class="tile-title-w-btn">
-                    <h3 class="title">{{ $product->name }}</h3>
+                    <h3 class="title"><span class="text-muted">Prodotto: </span> {{ $product->name }}</h3>
+                    <a class="btn btn-sm btn-info" href="{{ route('admin.products.index') }}"><i class="fa fa-arrow-left"
+                            aria-hidden="true"></i> Torna ai prodotti</a>
                 </div>
+                <hr>
                 @if (!$product->img_path)
-                    <img class="rounded" src="" alt="image" width="">
+                    <img class="rounded w-100 border" src="{{ asset('storage/no_image.jpg') }}" alt="image" width="no-image">
                 @else
-                    <img class="rounded w-100" src="{{ asset('storage') . '/' . $product->img_name }}" alt="p"
+                    <img class="rounded w-100 border" src="{{ asset('storage') . '/' . $product->img_name }}" alt="{{ $product->name }}"
                         width="">
                 @endif
-                <div class="tile-body">
+                <div class="tile-body my-3">
                     <p>{{ $product->description }}</p>
-                    <p>Prezzo: {{ $product->price }} €</p>
-                    <p>Stock: {{ $product->stock }}</p>
+                    <hr>
+                    <p><span class="font-weight-bold">Prezzo: </span>  {{ $product->price }} €</p>
+                    <p><span class="font-weight-bold">Stock: </span>  {{ $product->stock }}</p>
                 </div>
             </div>
         </div>
