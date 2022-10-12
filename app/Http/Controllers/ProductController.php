@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+
 
 class ProductController extends Controller
 {
@@ -114,7 +116,6 @@ class ProductController extends Controller
             'description.required' => 'La descrizione è obbligatoria',
         ]);
 
-
         //UPDATE DELL'IMMAGINE
         if ($request->hasfile('image')) {
             if ($product->img_name) {
@@ -144,6 +145,7 @@ class ProductController extends Controller
         ]);
 
         return redirect()->route('admin.products.index')->with('success', 'Il prodotto è stato aggiornato');
+
     }
 
     /**
@@ -161,5 +163,11 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('admin.products.index')->with('success', 'Il prodotto è stato eliminato');
+    }
+
+    public function seeReviews($product){
+        $product = Product::findOrFail($product);
+        $reviews = Product::find($product->id)->reviews;
+        return view('admin.products.seeReviews', compact('product', 'reviews'));
     }
 }

@@ -12,6 +12,21 @@
                     <label class="control-label">Description</label>
                     <textarea class="form-control" placeholder="Enter Description" name="description">{{ old('description', isset($review) ? $review->description : '') }}</textarea>
                 </div>
+                <select class="form-select" aria-label="Default select example" name="product_id">
+                    <option value="">Select one Product</option>
+                    @foreach ($products as $product)
+                        <option
+                            @if (isset($student)) value="{{ old('product_id', $product->id) }}"
+                                @selected($student->product_id == $product->id)
+                                @else
+                                value="{{ $product->id }}" @endif>
+                            {{ $product->name }}
+                        </option>
+                    @endforeach
+                    @error('product_id')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </select>
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
