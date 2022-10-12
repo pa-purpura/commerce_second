@@ -24,6 +24,11 @@
             </a>
         </li>
         <li>
+            <a class="app-menu__item active" href="{{ route('admin.products.index') }}"><i class="app-menu__icon fa fa-product-hunt" aria-hidden="true"></i>
+                <span class="app-menu__label"> Prodotti</span>
+            </a>
+        </li>
+        <li>
 
             <a class="app-menu__item active" href="{{ route('admin.reviews.index') }}"><i
                     class="app-menu__icon fa fa-star"></i>
