@@ -37,12 +37,20 @@
                                 @forelse ($products as $product)
                                     <tr>
                                         <td>{{ $product->id }}</td>
-                                        <td><img src="" alt="img"></td>
+                                        <td>
+                                            @if (!$product->img_path)
+                                                <img class="rounded border" src="{{ asset('storage/no_image.jpg') }}"
+                                                    alt="image" width="80">
+                                            @else
+                                                <img class="rounded border" src="{{ asset('storage') . '/' . $product->img_name }}"
+                                                    alt="p" width="80">
+                                            @endif
+                                        </td>
                                         <td>{{ $product->name }}</td>
                                         <td>{{ Str::limit($product->description, 60) }}</td>
                                         <td>{{ $product->price }} €</td>
                                         <td>{{ $product->stock }}</td>
-                                        <td class="d-flex justify-content-center align-items-center">
+                                        <td class="d-flex">
                                             <a href="{{ route('admin.products.show', $product->id) }}">
                                                 <button class="btn btn-sm btn-info"><i class="fa fa-eye"
                                                         aria-hidden="true"></i></button>

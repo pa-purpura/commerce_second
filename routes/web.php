@@ -7,7 +7,6 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReviewController;
 
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
