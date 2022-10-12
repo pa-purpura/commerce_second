@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreReviewRequest;
 use App\Models\Review;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -32,7 +33,8 @@ class ReviewController extends Controller
     public function create()
     {
         // $this->authorize('create',Review::class);
-        return view('admin.reviews.create');
+        $products = Product::all();
+        return view('admin.reviews.create', compact('products'));
     }
 
     /**
@@ -43,9 +45,11 @@ class ReviewController extends Controller
      */
     public function store(StoreReviewRequest $request)
     {
+        // dd($request);
         $review = new Review;
         $review->fill($request->all());
         $review->user_id = Auth::user()->id;
+        $review->product_id = $request->product_id;
         $review->save();
 
         return redirect()->route('admin.reviews.index')->with('success', 'Review created successfully');

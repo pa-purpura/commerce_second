@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 class ProductController extends Controller
 {
@@ -14,7 +17,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('id','DESC')->get();
+        $products = Product::orderBy('id', 'DESC')->get();
         return view('admin.products.index', compact('products'));
     }
 
@@ -35,24 +38,41 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {
         $request->validate([
             'name' => 'required|max:255',
             'description' => 'required',
             'price' => 'nullable',
             'stok' => 'nullable',
-        ],[
+        ], [
             'name.required' => 'Il nome è obbligatorio',
             'description.required' => 'La descrizione è obbligatoria',
         ]);
 
         $data = $request->all();
 
+
+
+        //STORAGGIO DELL'IMMAINGE
+        if ($request->file()) {
+            if ($request->file('image')->getError() > 0) {
+                return redirect()->route('admin.posts.create')->with('error', 'Non puoi inserire questa immagine');
+            }
+
+            $image = 'img-' . time() . '.' . $request->file('image')->getClientOriginalExtension();
+            $path = Storage::putFileAs('images', $request->file('image'), $image);
+        } else {
+            $path = null; //src
+            $image = null; //alt
+        }
+
         $new_product = new Product();
+        $new_product->img_name = $image;
+        $new_product->img_path = $path;
         $new_product->fill($data);
         $new_product->save();
 
-        return redirect()->route('admin.products.index')->with('success','Il prodotto è stato aggiunto');
+        return redirect()->route('admin.products.index')->with('success', 'Il prodotto è stato aggiunto');
     }
 
     /**
@@ -74,7 +94,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('admin.products.edit', compact('product'))->with('success','Il prodotto è stato aggiunto');
+        return view('admin.products.edit', compact('product'))->with('success', 'Il prodotto è stato aggiunto');
     }
 
     /**
@@ -90,15 +110,42 @@ class ProductController extends Controller
             'name' => 'required|max:255',
             'description' => 'required',
             'price' => 'nullable',
-            'stok' => 'nullable',
-        ],[
+            'stock' => 'nullable',
+        ], [
             'name.required' => 'Il nome è obbligatorio',
             'description.required' => 'La descrizione è obbligatoria',
         ]);
 
-        $product->update();
-      
-        return redirect()->route('admin.products.index')->with('success','Il prodotto è stato aggiornato');
+        //UPDATE DELL'IMMAGINE
+        if ($request->hasfile('image')) {
+            if ($product->img_name) {
+                Storage::delete($product->img_path);
+            }
+
+            $image = 'img-' . time() . '.' . $request->file('image')->getClientOriginalExtension();
+            $path = Storage::putFileAs('images', $request->file('image'), $image);
+        } else {
+
+            if (is_null($product->img_name)) {
+                $image = null;
+                $path = null;
+            } else {
+                $image = $product->img_name;
+                $path = $product->img_path;
+            }
+        }
+
+        $product->update([
+            'name' => $request->name,
+            'price' => $request->price,
+            'stock' => $request->stock,
+            'description' => $request->description,
+            'img_name' => $image,
+            'img_path' => $path,
+        ]);
+
+        return redirect()->route('admin.products.index')->with('success', 'Il prodotto è stato aggiornato');
+
     }
 
     /**
@@ -109,8 +156,18 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        if (Storage::disk('local')->exists('images/' . $product->img_name)) {
+            Storage::disk('local')->delete('images/' . $product->img_name);
+        }
+
         $product->delete();
 
-        return redirect()->route('admin.products.index')->with('success','Il prodotto è stato eliminato');
+        return redirect()->route('admin.products.index')->with('success', 'Il prodotto è stato eliminato');
+    }
+
+    public function seeReviews($product){
+        $product = Product::findOrFail($product);
+        $reviews = Product::find($product->id)->reviews;
+        return view('admin.products.seeReviews', compact('product', 'reviews'));
     }
 }

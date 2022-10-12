@@ -9,8 +9,6 @@ use App\Http\Controllers\SellerController;
 
 
 
-
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,6 +28,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('products', ProductController::class);
     Route::resource('order', OrderController::class);
     Route::resource('sellers', SellerController::class);
+    Route::get('seeReviews/{product}', [ProductController::class, 'seeReviews'])->name('seeReviews');
 
 
 
