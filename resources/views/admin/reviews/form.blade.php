@@ -7,10 +7,17 @@
                     <label class="control-label">Rating</label>
                     <input class="form-control" type="number" placeholder="Enter Rating" name="rating"
                         value="{{ old('rating', isset($review) ? $review->rating : '') }}">
+                    @error('rating')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label class="control-label">Description</label>
-                    <textarea class="form-control" placeholder="Enter Description" name="description">{{ old('description', isset($review) ? $review->description : '') }}</textarea>
+                    <textarea class="form-control" placeholder="Enter Description"
+                        name="description">{{ old('description', isset($review) ? $review->description : '') }}</textarea>
+                    @error('description')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <select class="form-select" aria-label="Default select example" name="product_id">
                     <option value="">Select one Product</option>
