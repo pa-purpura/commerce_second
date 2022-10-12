@@ -6,21 +6,28 @@
         <h1><i class="fa fa-edit"></i></i> Modifica User</h1>
     </div>
 </div>
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-md-6">
         <div class="tile">
-            <h3 class="tile-title">Vertical da cambiare Form</h3>
-            {{-- {{ route('admin.post.update', $post->id)} --}}
-            <form action="}" method="post">
+            <h3 class="tile-title">Edit User</h3>
+           
+            <form class="form-horizontal" action="{{ route('admin.user.update', $user) }}" method="post"  enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                 
-                {{-- @include('admin.post.form') --}}
-                <div>qui andra il form</div>
-                {{-- @include('admin.player.prova') --}}
+                @include('admin.user.form')
+
                 <div class="tile-footer">
-                    <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Register</button>&nbsp;&nbsp;&nbsp;
-                    <!-- <a class="btn btn-secondary" href="#"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cancel</a> -->
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fa fa-fw fa-lg fa-check-circle"></i>
+                        Register
+                    </button>&nbsp;&nbsp;&nbsp;
+                    <a href="{{ route('admin.user.index') }}" class="text-decoration-none">
+                        <button class="btn btn-info">
+                            <i class="fa fa-fw fa-lg fa-arrow-left"></i>
+                            Back
+                        </button>&nbsp;&nbsp;&nbsp;
+                    </a>
                 </div>
             </form>
         </div>

@@ -20,24 +20,24 @@
     <div class="row">
         <div class="col-md-12">
             <div class="tile">
-                <h3 class="tile-title"><i class="fa fa-shopping-cart mr-2"></i> Lista Ordini</h3>
+                <h3 class="tile-title"><i class="fa fa-shopping-cart mr-2"></i> Orders List</h3>
                 <div class="bs-component" style="margin-bottom: 15px;">
                     <div class="col-md-12">
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class="text-center">
                                     <tr>
+                                        <th>User<i class="ml-1 fa fa-user" aria-hidden="true"></i></th>
                                         <th>Order ID <i class="ml-1 fa fa-barcode" aria-hidden="true"></i></th>
                                         <th>Status <i class="ml-1 fa fa-exchange" aria-hidden="true"></i></th>
                                         <th>Total <i class="ml-1 fa fa-money" aria-hidden="true"></i></th>
-                                        <th>Show Order <i class="ml-1 fa fa-list-alt" aria-hidden="true"></i></th>
-                                        <th>Edit Order <i class="ml-1 fa fa-pencil-square-o" aria-hidden="true"></i></th>
-                                        <th>Delete Order <i class="ml-1 fa fa-trash-o" aria-hidden="true"></i></th>
+                                        <th>Actions <i class="ml-1 fa fa-list-alt" aria-hidden="true"></i></th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-center">
                                     @foreach ($orders as $order)
                                         <tr>
+                                            <td>{{ $order->user->name }}</td>
                                             <td>{{ $order->id }}</td>
                                             <td>{{ $order->status }}</td>
                                             <td>USD {{ $order->total }}</td>
@@ -47,16 +47,12 @@
                                                         <i class="ml-1 fa fa-list-alt" aria-hidden="true"></i>
                                                     </button>
                                                 </a>
-                                            </td>
-                                            <td>
                                                 <a href="{{ route('admin.order.edit', $order->id) }}">
                                                     <button class="btn btn-primary">
                                                         <i class="ml-1 fa fa-pencil-square-o" aria-hidden="true"></i>
                                                     </button>
                                                 </a>
-                                            </td>
-                                            <td>
-                                                <form action="{{ route('admin.order.destroy', $order) }}" method="POST">
+                                                <form action="{{ route('admin.order.destroy', $order) }}" method="POST" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger">
