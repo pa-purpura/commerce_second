@@ -30,9 +30,7 @@
                                         <th>Order ID <i class="ml-1 fa fa-barcode" aria-hidden="true"></i></th>
                                         <th>Status <i class="ml-1 fa fa-exchange" aria-hidden="true"></i></th>
                                         <th>Total <i class="ml-1 fa fa-money" aria-hidden="true"></i></th>
-                                        <th>Show Order <i class="ml-1 fa fa-list-alt" aria-hidden="true"></i></th>
-                                        <th>Edit Order <i class="ml-1 fa fa-pencil-square-o" aria-hidden="true"></i></th>
-                                        <th>Delete Order <i class="ml-1 fa fa-trash-o" aria-hidden="true"></i></th>
+                                        <th>Actions <i class="ml-1 fa fa-list-alt" aria-hidden="true"></i></th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-center">
@@ -47,16 +45,12 @@
                                                         <i class="ml-1 fa fa-list-alt" aria-hidden="true"></i>
                                                     </button>
                                                 </a>
-                                            </td>
-                                            <td>
                                                 <a href="{{ route('admin.order.edit', $order->id) }}">
                                                     <button class="btn btn-primary">
                                                         <i class="ml-1 fa fa-pencil-square-o" aria-hidden="true"></i>
                                                     </button>
                                                 </a>
-                                            </td>
-                                            <td>
-                                                <form action="{{ route('admin.order.destroy', $order) }}" method="POST">
+                                                <form action="{{ route('admin.order.destroy', $order) }}" method="POST" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger">
