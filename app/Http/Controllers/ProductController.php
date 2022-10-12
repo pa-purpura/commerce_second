@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Review;
 use Illuminate\Http\Request;
+
 
 class ProductController extends Controller
 {
@@ -35,7 +37,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {
         $request->validate([
             'name' => 'required|max:255',
             'description' => 'required',
@@ -97,7 +99,7 @@ class ProductController extends Controller
         ]);
 
         $product->update();
-      
+
         return redirect()->route('admin.products.index')->with('success','Il prodotto è stato aggiornato');
     }
 
@@ -112,5 +114,11 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('admin.products.index')->with('success','Il prodotto è stato eliminato');
+    }
+
+    public function seeReviews($product){
+        $product = Product::findOrFail($product);
+        $reviews = Product::find($product->id)->reviews;
+        return view('admin.products.seeReviews', compact('product', 'reviews'));
     }
 }

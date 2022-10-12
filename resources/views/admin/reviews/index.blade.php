@@ -1,6 +1,6 @@
 @extends('admin.layout')
 @section('content')
-{{-- {{ Auth::user()->name }} --}}
+{{-- @dd($reviews) --}}
 <div class="app-title">
     <div>
         <h1><i class="fa fa-th-list"></i>Reviews</h1>
@@ -18,13 +18,14 @@
         <div class="tile">
             <div class="d-flex justify-content-between">
                 <h3 class="tile-title">Review Table</h3>
-                <a href="{{ route('admin.reviews.create') }}"><button class="btn btn-primary mb-2"><i
+                <a href="{{ route('admin.reviews.create') }}"><button class="btn btn-success mb-2"><i
                             class="fa fa-plus" aria-hidden="true"></i>
                         Aggiungi nuova Review </button></a>
             </div>
             <table class="table">
                 <thead>
                     <tr>
+                        <th>Product name</th>
                         <th>Rating</th>
                         <th>Description</th>
                         <th>Actions</th>
@@ -42,6 +43,7 @@
                     ])
                     @endcomponent
                     <tr>
+                        <td>{{ $review->product->name}}</td>
                         <td>{{ $review->rating }}</td>
                         <td>{{ $review->description }}</td>
                         <td>

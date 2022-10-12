@@ -47,6 +47,10 @@
                                                 <button class="btn btn-sm btn-info"><i class="fa fa-eye"
                                                         aria-hidden="true"></i></button>
                                             </a>
+                                            <a href="{{ route('admin.seeReviews', $product) }}">
+                                                <button class="btn btn-sm btn-info mx-2"><i class="fa fa-star"
+                                                        aria-hidden="true"></i></button>
+                                            </a>
                                             <a href="{{ route('admin.products.edit', $product->id) }}">
                                                 <button class="btn btn-sm btn-primary mx-2"><i class="fa fa-pencil-square-o"
                                                         aria-hidden="true"></i></button>
