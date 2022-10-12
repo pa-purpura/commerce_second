@@ -17,6 +17,7 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
+            'user_id' => 5,
             'status' => fake()->randomElement(['processing', 'delivering', 'delivered']),
             'total' => fake()->randomFloat(2),
         ];

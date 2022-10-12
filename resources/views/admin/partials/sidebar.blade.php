@@ -19,7 +19,7 @@
         <li>
             {{-- <i class="fa fa-id-card-o" aria-hidden="true"></i> --}}
 
-            <a class="app-menu__item active" href=""><i class="app-menu__icon fa fa-users  "></i>
+            <a class="app-menu__item active" href="{{ route('admin.user.index') }}"><i class="app-menu__icon fa fa-users  "></i>
                 <span class="app-menu__label">Users</span>
             </a>
 
