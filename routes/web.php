@@ -7,7 +7,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReviewController;
 
 
-use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,14 +20,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('admin')->name('admin.')->group(function () {
-    
+
     Route::view('home', 'admin.dashboard.index')->name('dashboard');
 
     Route::resource('reviews', ReviewController::class);
     Route::resource('products', ProductController::class);
     Route::resource('order', OrderController::class);
 
-    
+
 
 });
 
