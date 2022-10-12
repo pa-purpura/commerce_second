@@ -19,14 +19,14 @@ use App\Http\Controllers\ReviewController;
 */
 
 Route::prefix('admin')->name('admin.')->group(function () {
-    
+
     Route::view('home', 'admin.dashboard.index')->name('dashboard');
 
     Route::resource('reviews', ReviewController::class);
     Route::resource('products', ProductController::class);
     Route::resource('order', OrderController::class);
 
-    
+
 
 });
 
