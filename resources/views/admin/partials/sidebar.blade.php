@@ -29,10 +29,16 @@
             </a>
         </li>
         <li>
-
             <a class="app-menu__item active" href="{{ route('admin.reviews.index') }}"><i
                     class="app-menu__icon fa fa-star"></i>
                 <span class="app-menu__label">Reviews</span>
+            </a>
+        </li>
+        <li>
+
+            <a class="app-menu__item active" href="{{ route('admin.sellers.index') }}"><i
+                    class="app-menu__icon fa fa-money"></i>
+                <span class="app-menu__label">Sellers</span>
             </a>
         </li>
 

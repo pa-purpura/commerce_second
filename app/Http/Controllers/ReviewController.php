@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreReviewRequest;
 use App\Models\Review;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,7 +33,8 @@ class ReviewController extends Controller
     public function create()
     {
         // $this->authorize('create',Review::class);
-        return view('admin.reviews.create');
+        $products = Product::all();
+        return view('admin.reviews.create', compact('products'));
     }
 
     /**
@@ -40,14 +43,16 @@ class ReviewController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreReviewRequest $request)
     {
+        // dd($request);
         $review = new Review;
         $review->fill($request->all());
         $review->user_id = Auth::user()->id;
+        $review->product_id = $request->product_id;
         $review->save();
 
-        return redirect()->route('admin.reviews.index')->with('success', 'a');
+        return redirect()->route('admin.reviews.index')->with('success', 'Review created successfully');
     }
 
     /**
@@ -74,7 +79,7 @@ class ReviewController extends Controller
     public function edit(Review $review)
     {
         $this->authorize('update', $review);
-        return view('admin.reviews.edit', compact('review'))->with('success', 's');
+        return view('admin.reviews.edit', compact('review'));
     }
 
     /**
@@ -84,7 +89,7 @@ class ReviewController extends Controller
      * @param  \App\Models\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreReviewRequest $request, $id)
     {
         $review = Review::findOrFail($id);
         $review->fill($request->all());
@@ -101,6 +106,6 @@ class ReviewController extends Controller
     public function destroy(Review $review)
     {
         $review->delete();
-        return redirect()->route('admin.reviews.index')->with('success', 'a');
+        return redirect()->route('admin.reviews.index')->with('success', 'Review deleted successfully');
     }
 }

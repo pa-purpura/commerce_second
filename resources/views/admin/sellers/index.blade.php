@@ -1,9 +1,8 @@
 @extends('admin.layout')
 @section('content')
-{{-- @dd($reviews) --}}
 <div class="app-title">
     <div>
-        <h1><i class="fa fa-th-list"></i>Reviews</h1>
+        <h1><i class="fa fa-th-list"></i>Sellers</h1>
         <p></p>
     </div>
     <ul class="app-breadcrumb breadcrumb">
@@ -17,47 +16,45 @@
         @include('admin.partials.flash_message')
         <div class="tile">
             <div class="d-flex justify-content-between">
-                <h3 class="tile-title">Review Table</h3>
-                <a href="{{ route('admin.reviews.create') }}"><button class="btn btn-success mb-2"><i
+                <h3 class="tile-title">Seller Table</h3>
+                <a href="{{ route('admin.sellers.create') }}"><button class="btn btn-success mb-2"><i
                             class="fa fa-plus" aria-hidden="true"></i>
-                        Aggiungi nuova Review </button></a>
+                        Aggiungi nuovo Seller </button></a>
             </div>
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Product name</th>
-                        <th>Rating</th>
-                        <th>Description</th>
+                        <th>Name</th>
+                        <th>Address</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($reviews as $review)
+                    @forelse ($sellers as $seller)
                     @component('components.modal',
                     [
                     'slot' => '',
-                    'id' => $review->id,
-                    'form_action' => route('admin.reviews.destroy', $review),
+                    'id' => $seller->id,
+                    'form_action' => route('admin.sellers.destroy', $seller),
                     'form_method' => 'DELETE',
-                    'title' => 'Are you sure you want to delete this review?',
+                    'title' => 'Are you sure you want to delete this seller?',
                     ])
                     @endcomponent
                     <tr>
-                        <td>{{ $review->product->name}}</td>
-                        <td>{{ $review->rating }}</td>
-                        <td>{{ $review->description }}</td>
+                        <td>{{ $seller->name }}</td>
+                        <td>{{ $seller->address }}</td>
                         <td>
                             <div class="d-flex">
                                 <button class="btn btn-danger mr-2"><i class="fa fa-trash-o" aria-hidden="true"
-                                        data-toggle="modal" data-target="#exampleModal{{ $review->id }}"></i>
+                                        data-toggle="modal" data-target="#exampleModal{{ $seller->id }}"></i>
                                 </button>
-                                <a href="{{ route('admin.reviews.edit', $review->id) }}" class="btn btn-primary"><i
+                                <a href="{{ route('admin.sellers.edit', $seller->id) }}" class="btn btn-primary"><i
                                         class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                             </div>
                         </td>
                     </tr>
                     @empty
-                    <span>reviews Empty!</span>
+                    <span>sellers Empty!</span>
                     @endforelse
                 </tbody>
             </table>

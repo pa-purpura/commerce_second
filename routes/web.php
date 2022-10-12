@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\SellerController;
+
 
 
 /*
@@ -25,6 +27,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('reviews', ReviewController::class);
     Route::resource('products', ProductController::class);
     Route::resource('order', OrderController::class);
+    Route::resource('sellers', SellerController::class);
+    Route::get('seeReviews/{product}', [ProductController::class, 'seeReviews'])->name('seeReviews');
 
 
 
