@@ -6,6 +6,9 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SellerController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,16 +22,15 @@ use App\Http\Controllers\UserController;
 */
 
 Route::prefix('admin')->name('admin.')->group(function () {
-    
+
     Route::view('home', 'admin.dashboard.index')->name('dashboard');
 
     Route::resource('reviews', ReviewController::class);
     Route::resource('products', ProductController::class);
     Route::resource('order', OrderController::class);
     Route::resource('user', UserController::class);
-
-    
-
+    Route::resource('sellers', SellerController::class);
+    Route::get('seeReviews/{product}', [ProductController::class, 'seeReviews'])->name('seeReviews');
 });
 
 

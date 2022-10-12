@@ -6,7 +6,7 @@
             <div class="tile">
                 <h3 class="tile-title">Crea Prodotto</h3>
                 <div class="tile-body">
-                    <form class="form-horizontal" action="{{ route('admin.products.store') }}" method="POST">
+                    <form class="form-horizontal" action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @include('admin.products.form')
 
