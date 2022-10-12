@@ -13,19 +13,19 @@
   <div class="form-group row">
     <label class="control-label col-md-3">Prezzo</label>
     <div class="col-md-8">
-      <input type="text" name="price" value="{{ old('price', isset($product) ? $product->price : '') }}" class="form-control" placeholder="Inserisci prezzo">
+      <input type="number" name="price" min="1" step="any" value="{{ old('price', isset($product) ? $product->price : '') }}" class="form-control" placeholder="Inserisci prezzo">
     </div>
   </div>
   <div class="form-group row">
     <label class="control-label col-md-3">Stock</label>
     <div class="col-md-8">
-      <input type="number" name="stock" value="{{ old('stock', isset($product) ? $product->stock : '') }}" class="form-control" placeholder="Inserisci stock">
+      <input type="number"  name="stock" value="{{ old('stock', isset($product) ? $product->stock : '') }}" class="form-control" placeholder="Inserisci stock">
     </div>
   </div>
  
   <div class="form-group row">
     <label class="control-label col-md-3">Immagine prodotto</label>
     <div class="col-md-8">
-      <input class="form-control" type="file">
+      <input class="form-control" type="file"  name="image">
     </div>
   </div>
