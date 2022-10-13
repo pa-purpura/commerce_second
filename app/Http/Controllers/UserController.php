@@ -55,7 +55,8 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $orders = User::findOrFail($id)->orders;
-        return view('admin.user.show', compact('user', 'orders'));
+        $wishlists = User::findOrFail($id)->wishlists;
+        return view('admin.user.show', compact('user', 'orders', 'wishlists'));
     }
 
     /**
