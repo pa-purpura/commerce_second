@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Cart;
 
 class Product extends Model
 {
@@ -17,7 +18,11 @@ class Product extends Model
         return $this->hasMany(Review::class);
     }
 
+    public function carts(){
+        return $this->belongsToMany(Cart::class);
+    }
+    
     public function orders(){
-        return $this->BelongsToMany(Order::class);
+        return $this->belongsToMany(Order::class);
     }
 }
