@@ -15,7 +15,7 @@ class WishlistController extends Controller
     public function index()
     {
         $wishlists = Wishlist::all();
-        return view('admin.wishlist.index', compact('users'));
+        return view('admin.wishlist.index', compact('wishlists'));
     }
 
     /**
@@ -36,7 +36,14 @@ class WishlistController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|max:255',
+        ], [
+            'name.required' => 'Name is mandatory',
+        ]);
+
         $data = $request->all();
+        $data['user_id'] = 5;
         $new_wishlist = new Wishlist();
         $new_wishlist->fill($data)->save();
 
@@ -49,7 +56,7 @@ class WishlistController extends Controller
      * @param  \App\Models\Wishlist  $wishlist
      * @return \Illuminate\Http\Response
      */
-    public function show(Wishlist $wishlist, $id)
+    public function show($id)
     {
         $wishlist = Wishlist::findOrFail($id);
         return view('admin.wishlist.show', compact('wishlist'));
@@ -61,10 +68,10 @@ class WishlistController extends Controller
      * @param  \App\Models\Wishlist  $wishlist
      * @return \Illuminate\Http\Response
      */
-    public function edit(Wishlist $wishlist, $id)
+    public function edit($id)
     {
         $wishlist = Wishlist::findOrFail($id);
-        return view('admin.wish$wishlist.edit', compact('wishlist'));
+        return view('admin.wishlist.edit', compact('wishlist'));
     }
 
     /**
@@ -92,7 +99,7 @@ class WishlistController extends Controller
      * @param  \App\Models\Wishlist  $wishlist
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Wishlist $wishlist, $id)
+    public function destroy($id)
     {
         $whishlist = Wishlist::findOrFail($id);
         $whishlist->delete($id);
