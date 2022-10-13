@@ -28,8 +28,13 @@
             </a>
         </li>
         <li>
+            <a class="app-menu__item" href="{{ route('admin.wishlist.index') }}"><i class="app-menu__icon fa fa-bolt"></i>
+                <span class="app-menu__label">Wishlist</span>
+            </a>
+        </li>
+        <li>
             <a class="app-menu__item active" href="{{ route('admin.products.index') }}"><i class="app-menu__icon fa fa-product-hunt" aria-hidden="true"></i>
-                <span class="app-menu__label"> Prodotti</span>
+                <span class="app-menu__label"> Products</span>
             </a>
         </li>
         <li>
