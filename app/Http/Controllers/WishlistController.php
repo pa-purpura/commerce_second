@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Wishlist;
+use App\Models\Product;
+use Illuminate\Database\Eloquent\Builder;
+
 use Illuminate\Http\Request;
 
 class WishlistController extends Controller
@@ -16,6 +19,21 @@ class WishlistController extends Controller
     {
         $wishlists = Wishlist::all();
         return view('admin.wishlist.index', compact('wishlists'));
+    }
+
+    public function addProductToWishlist(Request $request)
+    {
+        // Riusciamo ad accendere ad user_id e hobby_id tramite i name presenti nel select name e nell'input name
+        $wishlist = Wishlist::find($request->wishlist_id);
+        $wishlist->products()->attach($request->product_id);
+        return back();
+    }
+
+    public function detachProduct($product_id, $wishlist_id)
+    {
+        $wishlist = Wishlist::find($wishlist_id);
+        $wishlist->products()->detach($product_id);
+        return back();
     }
 
     /**
@@ -36,16 +54,23 @@ class WishlistController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|max:255',
-        ], [
-            'name.required' => 'Name is mandatory',
-        ]);
+        $request->validate(
+            [
+                'name' => 'required|max:255',
+            ],
+            [
+                'name.required' => 'Name is mandatory',
+            ],
+        );
 
         $data = $request->all();
         $data['user_id'] = 5;
         $new_wishlist = new Wishlist();
         $new_wishlist->fill($data)->save();
+
+        if (array_key_exists('products', $data)) {
+            $new_wishlist->products()->attach($data['products']);
+        }
 
         return redirect()->route('admin.wishlist.index');
     }
@@ -59,7 +84,15 @@ class WishlistController extends Controller
     public function show($id)
     {
         $wishlist = Wishlist::findOrFail($id);
-        return view('admin.wishlist.show', compact('wishlist'));
+
+        $products = Wishlist::find($id)->products;
+
+        $productsOff = Product::whereDoesntHave('wishlists', function (Builder $query) use ($id){
+            $query->where('wishlist_id', $id);
+        })->get();
+        // $product = Product::all();
+
+        return view('admin.wishlist.show', compact('wishlist', 'products', 'productsOff'));
     }
 
     /**
@@ -83,14 +116,21 @@ class WishlistController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $data = $request->all();
         $wishlist = Wishlist::findOrFail($id);
-        $wishlist->fill($request->all());
+        $wishlist->fill($data);
         $wishlist->update([
             'name' => $request->name,
             'user_id' => $request->user_id,
         ]);
-        
-        return redirect()->route('admin.wi$wishlist.index');
+
+        if (array_key_exists('products', $data)) {
+            $wishlist->products()->sync($data['products']);
+        } else {
+            $wishlist->products()->detach();
+        }
+
+        return redirect()->route('admin.wishlist.index');
     }
 
     /**

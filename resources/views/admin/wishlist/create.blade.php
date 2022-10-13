@@ -18,19 +18,19 @@
                     @csrf
 
                     @include('admin.wishlist.form')
-                    <div class="tile-footer">
+                    <div class="tile-footer mb-2">
                         <button class="btn btn-primary" type="submit">
                             <i class="fa fa-fw fa-lg fa-check-circle"></i>
                             Register
                         </button>&nbsp;&nbsp;&nbsp;
-                        <a href="{{ route('admin.wishlist.index') }}" class="text-decoration-none">
-                            <button class="btn btn-info">
-                                <i class="fa fa-fw fa-lg fa-arrow-left"></i>
-                                Back
-                            </button>&nbsp;&nbsp;&nbsp;
-                        </a>
                     </div>
                 </form>
+                <a href="{{ route('admin.wishlist.index') }}" class="text-decoration-none">
+                    <button class="btn btn-info">
+                        <i class="fa fa-fw fa-lg fa-arrow-left"></i>
+                        Back
+                    </button>&nbsp;&nbsp;&nbsp;
+                </a>
             </div>
         </div>
     </div>

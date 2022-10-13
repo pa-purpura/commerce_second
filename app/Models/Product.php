@@ -25,4 +25,8 @@ class Product extends Model
     public function orders(){
         return $this->belongsToMany(Order::class);
     }
+
+    public function wishlists() {
+        return $this->belongsToMany(Wishlist::class);
+    }
 }
