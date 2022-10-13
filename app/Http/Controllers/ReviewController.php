@@ -32,7 +32,6 @@ class ReviewController extends Controller
      */
     public function create()
     {
-        // $this->authorize('create',Review::class);
         $products = Product::all();
         return view('admin.reviews.create', compact('products'));
     }
@@ -45,7 +44,6 @@ class ReviewController extends Controller
      */
     public function store(StoreReviewRequest $request)
     {
-        // dd($request);
         $review = new Review;
         $review->fill($request->all());
         $review->user_id = Auth::user()->id;
@@ -78,8 +76,8 @@ class ReviewController extends Controller
      */
     public function edit(Review $review)
     {
-        $this->authorize('update', $review);
-        return view('admin.reviews.edit', compact('review'));
+        $products = Product::all();
+        return view('admin.reviews.edit', compact('review', 'products'));
     }
 
     /**
@@ -93,6 +91,7 @@ class ReviewController extends Controller
     {
         $review = Review::findOrFail($id);
         $review->fill($request->all());
+        $review->product_id = $request->product_id;
         $review->save();
         return redirect()->route('admin.reviews.index')->with('success', 'Action completed');
     }

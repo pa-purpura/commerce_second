@@ -23,8 +23,8 @@
                     <option value="">Select one Product</option>
                     @foreach ($products as $product)
                         <option
-                            @if (isset($student)) value="{{ old('product_id', $product->id) }}"
-                                @selected($student->product_id == $product->id)
+                            @if (isset($review)) value="{{ old('product_id', $product->id) }}"
+                                @selected($review->product_id == $product->id)
                                 @else
                                 value="{{ $product->id }}" @endif>
                             {{ $product->name }}
