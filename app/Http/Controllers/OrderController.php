@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -45,9 +46,11 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+    public function show($id)
     {
-        return view('admin.order.show', compact('order'));
+        $order = Order::findOrFail($id);
+        $products = Order::find($id)->products;
+        return view('admin.order.show', compact('order', 'products'));
     }
 
     /**

@@ -7,7 +7,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SellerController;
-
+use App\Http\Controllers\WishlistController;
 
 
 /*
@@ -30,6 +30,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('order', OrderController::class);
     Route::resource('user', UserController::class);
     Route::resource('sellers', SellerController::class);
+    Route::resource('wishlist', WishlistController::class);
     Route::get('seeReviews/{product}', [ProductController::class, 'seeReviews'])->name('seeReviews');
 });
 
