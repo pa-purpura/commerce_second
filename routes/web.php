@@ -32,6 +32,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('sellers', SellerController::class);
     Route::resource('wishlist', WishlistController::class);
     Route::get('seeReviews/{product}', [ProductController::class, 'seeReviews'])->name('seeReviews');
+    Route::get('addProductToWishlist', [WishlistController::class, 'addProductToWishlist'])->name('addProductToWishlist');
+    Route::get('detachProduct/{product_id}/{wishlist_id}', [WishlistController::class, 'detachProduct'])->name('detachProduct');
 });
 
 

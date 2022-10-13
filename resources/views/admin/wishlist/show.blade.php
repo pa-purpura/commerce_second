@@ -2,6 +2,7 @@
 @section('title')
     Wishlist
 @endsection
+
 @section('content')
     <div class="app-title">
         <h1><i class="fa fa-bolt mr-2"></i>{{ $wishlist->name }} </h1>
@@ -15,7 +16,7 @@
             </div>
         </div>
         <div class="tile col-8">
-            <div class="table-responsive">
+            {{-- <div class="table-responsive">
                 <table class="table">
                     @forelse ($products as $product)
                         <thead class="text-center">
@@ -48,7 +49,53 @@
                         </div>
                     @endforelse
                 </table>
-            </div>
+            </div> --}}
+            <h1 class="my-5">{{ $wishlist->name }}'s products</h1>
+
+            {{-- <a href="{{ route('products.products.detachAll', $product->id) }}">
+                <button class="btn btn-primary">
+                    Remove All products
+                </button>
+            </a> --}}
+
+            @if ($productsOff->isNotEmpty())
+                <form action="{{ route('admin.addProductToWishlist') }}" class="col-4 mt-3" method="post">
+                    @method('GET')
+                    @csrf
+
+                    <input type="hidden" name="wishlist_id" value="{{ $wishlist->id }}">
+
+                    <select name="product_id" class="form-select" aria-label="Default select example">
+                        @foreach ($productsOff as $product)
+                            <option value="{{ $product->id }}">{{ $product->name }}</option>
+                        @endforeach
+                    </select>
+
+                    <button class="btn btn-primary mt-3" type="subtmit">
+                        Add product
+                    </button>
+                </form>
+            @endif
+
+            <section class="container my-3">
+                <div class="row d-flex justify-content-center">
+                    <ul class="list-group col-8">
+                        @foreach ($products as $product)
+                            <li class="list-group-item d-flex justify-content-between">
+                                <div>{{ $product->name }}</div>
+                                <div>
+                                    <a
+                                        href="{{ route('admin.detachProduct', [$product->id, $product->pivot->wishlist_id]) }}">
+                                        <button class="btn btn-danger">
+                                            Remove products
+                                        </button>
+                                    </a>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </section>
         </div>
         {{-- <div class="col-8">
             <div class="tile shadow">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Wishlist;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Http\Request;
 
@@ -18,6 +19,21 @@ class WishlistController extends Controller
     {
         $wishlists = Wishlist::all();
         return view('admin.wishlist.index', compact('wishlists'));
+    }
+
+    public function addProductToWishlist(Request $request)
+    {
+        // Riusciamo ad accendere ad user_id e hobby_id tramite i name presenti nel select name e nell'input name
+        $wishlist = Wishlist::find($request->wishlist_id);
+        $wishlist->products()->attach($request->product_id);
+        return back();
+    }
+
+    public function detachProduct($product_id, $wishlist_id)
+    {
+        $wishlist = Wishlist::find($wishlist_id);
+        $wishlist->products()->detach($product_id);
+        return back();
     }
 
     /**
@@ -68,8 +84,15 @@ class WishlistController extends Controller
     public function show($id)
     {
         $wishlist = Wishlist::findOrFail($id);
+
         $products = Wishlist::find($id)->products;
-        return view('admin.wishlist.show', compact('wishlist', 'products'));
+
+        $productsOff = Product::whereDoesntHave('wishlists', function (Builder $query) use ($id){
+            $query->where('wishlist_id', $id);
+        })->get();
+        // $product = Product::all();
+
+        return view('admin.wishlist.show', compact('wishlist', 'products', 'productsOff'));
     }
 
     /**
