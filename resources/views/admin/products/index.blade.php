@@ -42,7 +42,8 @@
                                                 <img class="rounded border" src="{{ asset('storage/no_image.jpg') }}"
                                                     alt="no-image" width="80">
                                             @else
-                                                <img class="rounded border" src="{{ asset('storage') . '/' . $product->img_name }}"
+                                                <img class="rounded border"
+                                                    src="{{ asset('storage') . '/' . $product->img_name }}"
                                                     alt="{{ $product->name }}" width="80">
                                             @endif
                                         </td>
@@ -63,13 +64,19 @@
                                                 <button class="btn btn-sm btn-primary mr-1"><i class="fa fa-pencil-square-o"
                                                         aria-hidden="true"></i></button>
                                             </a>
-                                            <form action="{{ route('admin.products.destroy', $product->id) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-sm btn-danger"><i class="fa fa-trash"
-                                                        aria-hidden="true"></i></button>
-                                            </form>
+                                            @component('components.modal',
+                                                [
+                                                    'slot' => '',
+                                                    'id' => $product->id,
+                                                    'form_action' => route('admin.products.destroy', $product->id),
+                                                    'form_method' => 'DELETE',
+                                                    'title' => "Sei sicuro di eliminare il prodotto $product->name",
+                                                ])
+                                            @endcomponent
+                                            <button class="btn btn-danger btn-sm mr-2"><i class="fa fa-trash-o"
+                                                    aria-hidden="true" data-toggle="modal"
+                                                    data-target="#exampleModal{{ $product->id }}"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                 @empty
