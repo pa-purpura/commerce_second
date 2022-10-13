@@ -57,7 +57,7 @@
                         </td>
                     </tr>
                     @empty
-                    <span>reviews Empty!</span>
+                    <td>Reviews table is empty!</td>
                     @endforelse
                 </tbody>
             </table>
