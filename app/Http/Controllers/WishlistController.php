@@ -7,6 +7,7 @@ use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WishlistController extends Controller
 {
@@ -64,8 +65,9 @@ class WishlistController extends Controller
         );
 
         $data = $request->all();
-        $data['user_id'] = 5;
+        // $data['user_id'] = 5;
         $new_wishlist = new Wishlist();
+        $new_wishlist->user_id = Auth::user()->id;
         $new_wishlist->fill($data)->save();
 
         if (array_key_exists('products', $data)) {
