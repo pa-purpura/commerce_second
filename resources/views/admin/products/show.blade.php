@@ -11,9 +11,9 @@
                 </div>
                 <hr>
                 @if (!$product->img_path)
-                    <img class="rounded w-100 border" src="{{ asset('storage/no_image.jpg') }}" alt="image" width="no-image">
+                    <img class="rounded w-100 border" src="{{ asset('storage/images/no_image.jpg') }}" alt="image" width="no-image">
                 @else
-                    <img class="rounded w-100 border" src="{{ asset('storage') . '/' . $product->img_name }}" alt="{{ $product->name }}"
+                    <img class="rounded w-100 border" src="{{  asset('storage') . '/products_images/' . $product->img_name }}" alt="{{ $product->name }}"
                         width="">
                 @endif
                 <div class="tile-body my-3">
