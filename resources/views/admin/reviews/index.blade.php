@@ -18,9 +18,11 @@
         <div class="tile">
             <div class="d-flex justify-content-between">
                 <h3 class="tile-title">Review Table</h3>
-                <a href="{{ route('admin.reviews.create') }}"><button class="btn btn-success mb-2"><i
-                            class="fa fa-plus" aria-hidden="true"></i>
-                        Aggiungi nuova Review </button></a>
+                <a href="{{ route('admin.reviews.create') }}">
+                    <button class="btn btn-success mb-2">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Aggiungi nuova Review 
+                    </button>
+                </a>
             </div>
             <table class="table">
                 <thead>

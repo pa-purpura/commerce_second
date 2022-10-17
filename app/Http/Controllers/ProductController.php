@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Review;
+use App\Models\Wishlist;
+use Illuminate\Database\Eloquent\Builder;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -19,7 +22,15 @@ class ProductController extends Controller
     {
         
         $products = Product::orderBy('id', 'DESC')->get();
+
         return view('admin.products.index', compact('products'));
+    }
+
+    public function detachWishlist($wishlist_id, $product_id)
+    {
+        $product = Product::find($product_id);
+        $product->wishlists()->detach($wishlist_id);
+        return back();
     }
 
     /**
@@ -82,9 +93,17 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show($id)
     {
-        return view('admin.products.show', compact('product'));
+        $product =Product::findOrFail($id);
+
+        $wishlists = Product::find($id)->wishlists;
+        // dd($wishlists);
+        $wishlistOff = Wishlist::whereDoesntHave('products', function (Builder $query) use($id) {
+            $query->where('product_id', $id);
+        })->get();
+
+        return view('admin.products.show', compact('product', 'wishlistOff', 'wishlists'));
     }
 
     /**

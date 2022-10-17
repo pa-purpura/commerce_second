@@ -8,15 +8,14 @@
                     <input class="form-control" type="number" placeholder="Enter Rating" name="rating"
                         value="{{ old('rating', isset($review) ? $review->rating : '') }}">
                     @error('rating')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                        <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label class="control-label">Description</label>
-                    <textarea class="form-control" placeholder="Enter Description"
-                        name="description">{{ old('description', isset($review) ? $review->description : '') }}</textarea>
+                    <textarea class="form-control" placeholder="Enter Description" name="description">{{ old('description', isset($review) ? $review->description : '') }}</textarea>
                     @error('description')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                        <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
                 <select class="form-select" aria-label="Default select example" name="product_id">
@@ -26,7 +25,8 @@
                             @if (isset($review)) value="{{ old('product_id', $product->id) }}"
                                 @selected($review->product_id == $product->id)
                                 @else
-                                value="{{ $product->id }}" @endif>
+                                value="{{ $product->id }}" 
+                            @endif>
                             {{ $product->name }}
                         </option>
                     @endforeach

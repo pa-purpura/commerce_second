@@ -30,6 +30,7 @@
                 </div>
                 <div class="bs-component" style="margin-bottom: 15px;">
                     <div class="col-md-12">
+                        @include('admin.partials.flash_message')
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class="text-center">
@@ -42,6 +43,15 @@
                                 </thead>
                                 <tbody class="text-center">
                                     @foreach ($wishlists as $wishlist)
+                                        @component('components.modal',
+                                            [
+                                                'slot' => '',
+                                                'id' => $wishlist->id,
+                                                'form_action' => route('admin.wishlist.destroy', $wishlist),
+                                                'form_method' => 'DELETE',
+                                                'title' => "Are you sure you want to delete $wishlist->name?",
+                                            ])
+                                        @endcomponent
                                         <tr>
                                             <td>{{ $wishlist->id }}</td>
                                             <td>{{ $wishlist->name }}</td>
@@ -56,17 +66,13 @@
                                                 <a href="{{ route('admin.wishlist.edit', $wishlist->id) }}"
                                                     class="text-decoration-none">
                                                     <button class="btn btn-primary">
-                                                        <i class="ml-1 fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                        <i class="ml-1 fa fa-pencil-square-o"></i>
                                                     </button>
                                                 </a>
-                                                <form action="{{ route('admin.wishlist.destroy', $wishlist) }}"
-                                                    method="POST" class="d-inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">
-                                                        <i class="ml-1 fa fa-trash-o" aria-hidden="true"></i>
-                                                    </button>
-                                                </form>
+                                                <button type="submit" class="btn btn-danger" data-toggle="modal"
+                                                    data-target="#exampleModal{{ $wishlist->id }}">
+                                                    <i class="ml-1 fa fa-trash-o" aria-hidden="true"></i>
+                                                </button>
                                             </td>
                                         </tr>
                                     @endforeach
