@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permission;
+use Illuminate\Database\Eloquent\Builder;
+
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -27,7 +31,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.create');
+        $roles = Role::get();
+        $permissions = Permission::get();
+        return view('admin.user.create', compact('roles', 'permissions'));
     }
 
     /**
@@ -56,8 +62,8 @@ class UserController extends Controller
         $data = $request->all();
         $data['password'] = Hash::make($request->password);
         $new_user = new User();
-        $new_user->img_name = $image;
-        $new_user->img_path = $path;
+        $new_user->syncPermissions($request->permissions, []);
+        $new_user->syncRoles($request->roles, []);
         $new_user->fill($data)->save();
 
         return redirect()->route('admin.user.index');
@@ -86,7 +92,12 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return view('admin.user.edit', compact('user'));
+        $permissions = Permission::get();
+        $roles = Role::get();
+        $user_role = $user->roles;
+        $user_permissions = $user->permissions;
+
+        return view('admin.user.edit', compact('user', 'permissions', 'roles', 'user_role', 'user_permissions'));
     }
 
     /**
@@ -98,7 +109,11 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user )
     {
-        /* $user = User::findOrFail($id); */
+
+        $user = User::findOrFail($id);
+        $user->fill($request->all());
+        $user->syncPermissions($request->permissions, []);
+        $user->syncRoles($request->roles, []);
 
          //UPDATE DELL'IMMAGINE
          if ($request->hasfile('image')) {
@@ -118,10 +133,6 @@ class UserController extends Controller
                 $path = $user->img_path;
             }
         }
-
-
-
-        /* $user->fill($request->all()); */
         $user->update([
             'name' => $request->name,
             'surname' => $request->surname,
@@ -132,7 +143,7 @@ class UserController extends Controller
             'img_name' => $image,
             'img_path' => $path,
         ]);
-        
+
         return redirect()
             ->route('admin.user.index');
     }
