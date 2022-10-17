@@ -39,11 +39,11 @@
                                         <td class="align-middle">{{ $product->id }}</td>
                                         <td class="align-middle">
                                             @if (!$product->img_path)
-                                                <img class="rounded border" src="{{ asset('storage/no_image.jpg') }}"
+                                                <img class="rounded border" src="{{ asset('storage/images/no_image.jpg') }}"
                                                     alt="no-image" width="80">
                                             @else
                                                 <img class="rounded border"
-                                                    src="{{ asset('storage') . '/' . $product->img_name }}"
+                                                    src="{{ asset('storage') . '/products_images/' . $product->img_name }}"
                                                     alt="{{ $product->name }}" width="80">
                                             @endif
                                         </td>

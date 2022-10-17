@@ -62,7 +62,7 @@ class ProductController extends Controller
             }
 
             $image = 'img-' . time() . '.' . $request->file('image')->getClientOriginalExtension();
-            $path = Storage::putFileAs('images', $request->file('image'), $image);
+            $path = Storage::putFileAs('products_images', $request->file('image'), $image);
         } else {
             $path = null; //src
             $image = null; //alt
@@ -126,7 +126,7 @@ class ProductController extends Controller
             }
 
             $image = 'img-' . time() . '.' . $request->file('image')->getClientOriginalExtension();
-            $path = Storage::putFileAs('images', $request->file('image'), $image);
+            $path = Storage::putFileAs('products_images', $request->file('image'), $image);
         } else {
 
             if (is_null($product->img_name)) {
@@ -159,8 +159,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        if (Storage::disk('local')->exists('images/' . $product->img_name)) {
-            Storage::disk('local')->delete('images/' . $product->img_name);
+        if (Storage::disk('local')->exists('products_images/' . $product->img_name)) {
+            Storage::disk('local')->delete('products_images/' . $product->img_name);
         }
 
         $product->delete();

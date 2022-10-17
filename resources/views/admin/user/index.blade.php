@@ -33,6 +33,7 @@
                                 <thead class="text-center">
                                     <tr>
                                         <th>User ID <i class="ml-1 fa fa-id-card-o" aria-hidden="true"></i></th>
+                                        <th>Image <i class="ml-1 fa fa-id-card-o" aria-hidden="true"></i></th>
                                         <th>Name <i class="ml-1 fa fa-arrow-circle-left" aria-hidden="true"></i></th>
                                         <th>Surname <i class="ml-1 fa fa-arrow-circle-left" aria-hidden="true"></i></th>
                                         <th>Orders <i class="ml-1 fa fa-list-ul" aria-hidden="true"></i></th>
@@ -43,6 +44,16 @@
                                     @foreach ($users as $user)
                                         <tr>
                                             <td>{{ $user->id }}</td>
+                                            <td class="align-middle">
+                                                @if (!$user->img_path)
+                                                    <img class="rounded border" src="{{ asset('storage/images/no_image.jpg') }}"
+                                                        alt="no-image" width="80">
+                                                @else
+                                                    <img class="rounded border"
+                                                        src="{{ asset('storage') . '/users_images/'. $user->img_name }}"
+                                                        alt="{{ $user->name }}" width="80">
+                                                @endif
+                                            </td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->surname }}</td>
                                             <td>{{ count($user->orders) ? count($user->orders) : "There's no orders"}}</td>
