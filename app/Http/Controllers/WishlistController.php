@@ -24,10 +24,17 @@ class WishlistController extends Controller
 
     public function addProductToWishlist(Request $request)
     {
+        $request->validate([
+            'wishlist_id' => 'required',
+        ], [
+            'wishlist_id.required' => 'Select at least one wishlist'
+        ]);
+
         // Riusciamo ad accendere ad user_id e hobby_id tramite i name presenti nel select name e nell'input name
         $wishlist = Wishlist::find($request->wishlist_id);
         $wishlist->products()->attach($request->product_id);
-        return back();
+
+        return back()->with('success', 'Il prodotto è stato aggiunto alla wishlist');
     }
 
     public function detachProduct($product_id, $wishlist_id)
@@ -70,11 +77,11 @@ class WishlistController extends Controller
         $new_wishlist->user_id = Auth::user()->id;
         $new_wishlist->fill($data)->save();
 
-        if (array_key_exists('products', $data)) {
-            $new_wishlist->products()->attach($data['products']);
-        }
+        // if (array_key_exists('products', $data)) {
+        //     $new_wishlist->products()->attach($data['products']);
+        // }
 
-        return redirect()->route('admin.wishlist.index');
+        return redirect()->route('admin.wishlist.index')->with('success', 'Wishlist Created');
     }
 
     /**
@@ -121,18 +128,15 @@ class WishlistController extends Controller
         $data = $request->all();
         $wishlist = Wishlist::findOrFail($id);
         $wishlist->fill($data);
-        $wishlist->update([
-            'name' => $request->name,
-            'user_id' => $request->user_id,
-        ]);
+        $wishlist->update();
 
-        if (array_key_exists('products', $data)) {
-            $wishlist->products()->sync($data['products']);
-        } else {
-            $wishlist->products()->detach();
-        }
+        // if (array_key_exists('products', $data)) {
+        //     $wishlist->products()->sync($data['products']);
+        // } else {
+        //     $wishlist->products()->detach();
+        // }
 
-        return redirect()->route('admin.wishlist.index');
+        return redirect()->route('admin.wishlist.index')->with('success', 'Wishlist Updated');
     }
 
     /**
@@ -146,6 +150,6 @@ class WishlistController extends Controller
         $whishlist = Wishlist::findOrFail($id);
         $whishlist->delete($id);
 
-        return back();
+        return back()->with('success', 'Wishlist deleted')->with('success', 'Wishlist deleted');
     }
 }
