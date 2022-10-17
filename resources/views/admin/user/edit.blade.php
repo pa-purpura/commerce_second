@@ -1,9 +1,12 @@
 @extends('admin.layout')
-@section('title') Edit user @endsection
+@section('title')
+    Edit user
+@endsection
 @section('content')
-<div class="app-title">
-    <div>
-        <h1><i class="fa fa-edit"></i></i> Modifica User</h1>
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-edit"></i></i> Modifica User</h1>
+        </div>
     </div>
 </div>
 @include('admin.partials.flash_message')
@@ -176,6 +179,4 @@
         </div>
     </div>
 </div>
-
-
 @endsection
