@@ -52,12 +52,13 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:255',
+            'name' => 'required|max:50',
             'description' => 'required',
             'price' => 'nullable',
             'stok' => 'nullable',
         ], [
             'name.required' => 'Il nome è obbligatorio',
+            'name.max' => 'Il nome non può avere più di 50 caratteri',
             'description.required' => 'La descrizione è obbligatoria',
         ]);
 
@@ -72,7 +73,7 @@ class ProductController extends Controller
             }
 
             $image = 'img-' . time() . '.' . $request->file('image')->getClientOriginalExtension();
-            $path = Storage::putFileAs('images', $request->file('image'), $image);
+            $path = Storage::putFileAs('products_images', $request->file('image'), $image);
         } else {
             $path = null; //src
             $image = null; //alt
@@ -84,7 +85,7 @@ class ProductController extends Controller
         $new_product->fill($data);
         $new_product->save();
 
-        return redirect()->route('admin.products.index')->with('success', 'Il prodotto è stato aggiunto');
+        return redirect()->route('admin.products.index')->with('success', "Il prodotto $new_product->name è stato aggiunto");
     }
 
     /**
@@ -114,7 +115,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('admin.products.edit', compact('product'))->with('success', 'Il prodotto è stato aggiunto');
+        return view('admin.products.edit', compact('product'));
     }
 
     /**
@@ -127,12 +128,13 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $request->validate([
-            'name' => 'required|max:255',
+            'name' => 'required|max:50',
             'description' => 'required',
             'price' => 'nullable',
             'stock' => 'nullable',
         ], [
             'name.required' => 'Il nome è obbligatorio',
+            'name.max' => 'Il nome non può avere più di 50 caratteri',
             'description.required' => 'La descrizione è obbligatoria',
         ]);
 
@@ -143,7 +145,7 @@ class ProductController extends Controller
             }
 
             $image = 'img-' . time() . '.' . $request->file('image')->getClientOriginalExtension();
-            $path = Storage::putFileAs('images', $request->file('image'), $image);
+            $path = Storage::putFileAs('products_images', $request->file('image'), $image);
         } else {
 
             if (is_null($product->img_name)) {
@@ -164,7 +166,7 @@ class ProductController extends Controller
             'img_path' => $path,
         ]);
 
-        return redirect()->route('admin.products.index')->with('success', 'Il prodotto è stato aggiornato');
+        return redirect()->route('admin.products.index')->with('success', "Il prodotto $product->name è stato aggiornato");
 
     }
 
@@ -176,13 +178,13 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        if (Storage::disk('local')->exists('images/' . $product->img_name)) {
-            Storage::disk('local')->delete('images/' . $product->img_name);
+        if (Storage::disk('local')->exists('products_images/' . $product->img_name)) {
+            Storage::disk('local')->delete('products_images/' . $product->img_name);
         }
 
         $product->delete();
 
-        return redirect()->route('admin.products.index')->with('success', 'Il prodotto è stato eliminato');
+        return redirect()->route('admin.products.index')->with('success', "Il prodotto $product->name è stato eliminato");
     }
 
     public function seeReviews($product){

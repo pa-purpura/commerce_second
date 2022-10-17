@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -37,9 +38,26 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
+        //STORAGGIO DELL'IMMAINGE
+        if ($request->file()) {
+            if ($request->file('image')->getError() > 0) {
+                return redirect()->route('admin.user.create')->with('error', 'Non puoi inserire questa immagine');
+            }
+
+            $image = 'img-' . time() . '.' . $request->file('image')->getClientOriginalExtension();
+            $path = Storage::putFileAs('users_images', $request->file('image'), $image);
+        } else {
+            $path = null; //src
+            $image = null; //alt
+        }
+
+
         $data = $request->all();
         $data['password'] = Hash::make($request->password);
         $new_user = new User();
+        $new_user->img_name = $image;
+        $new_user->img_path = $path;
         $new_user->fill($data)->save();
 
         return redirect()->route('admin.user.index');
@@ -78,10 +96,32 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user )
     {
-        $user = User::findOrFail($id);
-        $user->fill($request->all());
+        /* $user = User::findOrFail($id); */
+
+         //UPDATE DELL'IMMAGINE
+         if ($request->hasfile('image')) {
+            if ($user->img_name) {
+                Storage::delete($user->img_path);
+            }
+
+            $image = 'img-' . time() . '.' . $request->file('image')->getClientOriginalExtension();
+            $path = Storage::putFileAs('users_images', $request->file('image'), $image);
+        } else {
+
+            if (is_null($user->img_name)) {
+                $image = null;
+                $path = null;
+            } else {
+                $image = $user->img_name;
+                $path = $user->img_path;
+            }
+        }
+
+
+
+        /* $user->fill($request->all()); */
         $user->update([
             'name' => $request->name,
             'surname' => $request->surname,
@@ -89,6 +129,8 @@ class UserController extends Controller
             'address' => $request->address,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'img_name' => $image,
+            'img_path' => $path,
         ]);
         
         return redirect()
@@ -104,6 +146,11 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
+
+        if (Storage::disk('local')->exists('users_images/' . $user->img_name)) {
+            Storage::disk('local')->delete('users_images/' . $user->img_name);
+        }
+
         $user->delete($id);
 
         return back();
