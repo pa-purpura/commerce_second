@@ -34,6 +34,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('user', UserController::class);
     Route::resource('sellers', SellerController::class);
     Route::get('seeReviews/{product}', [ProductController::class, 'seeReviews'])->name('seeReviews');
+    Route::resource('wishlist', WishlistController::class);
+    Route::get('seeReviews/{product}', [ProductController::class, 'seeReviews'])->name('seeReviews');
+    Route::get('addProductToWishlist', [WishlistController::class, 'addProductToWishlist'])->name('addProductToWishlist');
+    Route::get('detachProduct/{product_id}/{wishlist_id}', [WishlistController::class, 'detachProduct'])->name('detachProduct');
+    Route::get('detachWishlist/{product_id}/{wishlist_id}', [ProductController::class, 'detachWishlist'])->name('detachWishlist');
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
     // Route::get('createSuperAdmin', [RoleController::class, 'createSuperAdmin'])->name('createSuperAdmin');
