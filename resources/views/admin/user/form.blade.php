@@ -14,7 +14,8 @@
             @enderror
         </div>
     </div> --}}
-    
+
+
     <div class="mb-3">
         <label for="name" class="form-label">Name</label>
 
@@ -25,6 +26,20 @@
             <div class="alert alert-danger mt-2">{{ $message }}</div>
         @enderror
     </div>
+
+    <div>
+        <label for="roles">Add Roles:</label>
+    </div>
+    <select name="roles[]" id="" multiple>
+        @foreach ($roles as $role)
+        <option value="{{ $role->id }}"
+            @if(Request::url()==='http://127.0.0.1:8000/admin/user/create' ) @elseif($user->
+            hasRole($role->id))
+            selected="selected"
+            @endif
+            >{{ $role->name }}</option>
+        @endforeach
+    </select>
 
     <div class="mb-3">
         <label for="surname" class="form-label">Surname</label>

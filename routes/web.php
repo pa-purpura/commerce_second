@@ -3,10 +3,12 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SellerController;
+use App\Http\Controllers\PermissionController;
 
 
 
@@ -31,6 +33,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('user', UserController::class);
     Route::resource('sellers', SellerController::class);
     Route::get('seeReviews/{product}', [ProductController::class, 'seeReviews'])->name('seeReviews');
+    Route::resource('roles', RoleController::class);
+    Route::resource('permissions', PermissionController::class);
+    // Route::get('createSuperAdmin', [RoleController::class, 'createSuperAdmin'])->name('createSuperAdmin');
+    Route::get('deleteRole/{id}/{role}', [RoleController::class, 'deleteRole'])->name('deleteRole');
+    Route::get('assignRole/{id}', [RoleController::class, 'assignRole'])->name('assignRole');
+    Route::get('deleteAllRoles/{id}', [RoleController::class, 'deleteAllRoles'])->name('deleteAllRoles');
+    Route::get('deletePermission/{id}/{role}', [PermissionController::class, 'deletePermission'])->name('deletePermission');
+    Route::get('assignPermission/{id}', [PermissionController::class, 'assignPermission'])->name('assignPermission');
+    Route::get('deleteAllPermissions/{id}', [PermissionController::class, 'deleteAllPermissions'])->name('deleteAllPermissions');
 });
 
 

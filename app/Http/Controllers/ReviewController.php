@@ -78,7 +78,6 @@ class ReviewController extends Controller
      */
     public function edit(Review $review)
     {
-        $this->authorize('update', $review);
         return view('admin.reviews.edit', compact('review'));
     }
 
