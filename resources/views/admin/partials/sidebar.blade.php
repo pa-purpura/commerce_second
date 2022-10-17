@@ -11,20 +11,20 @@
     <ul class="app-menu">
         <li>
 
-            <a class="app-menu__item active" href="{{ route('admin.dashboard') }}"><i
+            <a class="app-menu__item" href="{{ route('admin.dashboard') }}"><i
                     class="app-menu__icon fa fa-dashboard"></i>
                 <span class="app-menu__label">Dashboard</span>
             </a>
         </li>
         <li>
             {{-- <i class="fa fa-id-card-o" aria-hidden="true"></i> --}}
-            <a class="app-menu__item active" href="{{ route('admin.user.index') }}"><i
+            <a class="app-menu__item" href="{{ route('admin.user.index') }}"><i
                     class="app-menu__icon fa fa-users  "></i>
                 <span class="app-menu__label">Users</span>
             </a>
         </li>
         <li>
-            <a class="app-menu__item active" href="{{ route('admin.order.index') }}"><i
+            <a class="app-menu__item" href="{{ route('admin.order.index') }}"><i
                     class="app-menu__icon fa fa-shopping-cart"></i>
                 <span class="app-menu__label">Orders</span>
             </a>
@@ -35,18 +35,18 @@
             </a>
         </li>
         <li>
-            <a class="app-menu__item active" href="{{ route('admin.products.index') }}"><i class="app-menu__icon fa fa-product-hunt" aria-hidden="true"></i>
+            <a class="app-menu__item" href="{{ route('admin.products.index') }}"><i class="app-menu__icon fa fa-product-hunt" aria-hidden="true"></i>
                 <span class="app-menu__label"> Products</span>
             </a>
         </li>
         <li>
-            <a class="app-menu__item active" href="{{ route('admin.reviews.index') }}"><i
+            <a class="app-menu__item" href="{{ route('admin.reviews.index') }}"><i
                     class="app-menu__icon fa fa-star"></i>
                 <span class="app-menu__label">Reviews</span>
             </a>
         </li>
         <li>
-            <a class="app-menu__item active" href="{{ route('admin.sellers.index') }}"><i
+            <a class="app-menu__item" href="{{ route('admin.sellers.index') }}"><i
                     class="app-menu__icon fa fa-money"></i>
                 <span class="app-menu__label">Sellers</span>
             </a>
@@ -76,7 +76,7 @@
         <li><a class="treeview-item" href="widgets.html"><i class="icon fa fa-circle-o"></i> Widgets</a></li> --}}
     </ul>
     {{-- {{ route('admin.user.index') }} --}}
-    {{-- <a class="app-menu__item active" href="{{ route('admin.author.index') }}"><i
+    {{-- <a class="app-menu__item" href="{{ route('admin.author.index') }}"><i
             class="app-menu__icon fa fa-id-card-o"></i>
         <span class="app-menu__label">Author</span>
     </a> --}}
@@ -86,7 +86,7 @@
                 class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">UI Elements</span><i
                 class="treeview-indicator fa fa-angle-right"></i></a>
         <ul class="treeview-menu">
-            <li><a class="treeview-item active" href="bootstrap-components.html"><i class="icon fa fa-circle-o"></i>
+            <li><a class="treeview-item" href="bootstrap-components.html"><i class="icon fa fa-circle-o"></i>
                     Bootstrap Elements</a></li>
             <li><a class="treeview-item" href="https://fontawesome.com/v4.7.0/icons/" target="_blank" rel="noopener"><i
                         class="icon fa fa-circle-o"></i> Font Icons</a></li>
