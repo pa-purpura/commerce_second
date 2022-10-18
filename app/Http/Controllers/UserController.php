@@ -110,7 +110,6 @@ class UserController extends Controller
     public function update(Request $request, User $user )
     {
 
-        $user = User::findOrFail($id);
         $user->fill($request->all());
         $user->syncPermissions($request->permissions, []);
         $user->syncRoles($request->roles, []);

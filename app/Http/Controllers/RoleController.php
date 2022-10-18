@@ -71,15 +71,15 @@ class RoleController extends Controller
 
     }
 
-    // public function assignRole(Request $request, $id)
-    // {
-    //     $user = User::find($id);
-    //     $data = $request->except('_token');
+    public function assignRole(Request $request, $id)
+    {
+        $user = User::find($id);
+        $data = $request->except('_token');
 
-    //     foreach ($data as $key => $value) {
-    //         $user->assignRole($value);
-    //     }
-    //     return redirect()->back()
-    //         ->with('success', 'Ruoli utente aggiornati con successo');
-    // }
+        foreach ($data as $key => $value) {
+            $user->assignRole($value);
+        }
+        return redirect()->back()
+            ->with('success', 'Ruoli utente aggiornati con successo');
+    }
 }
