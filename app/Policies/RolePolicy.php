@@ -32,7 +32,6 @@ class RolePolicy
      */
     public function view(User $user, Role $role)
     {
-        dd('cua');
         return $user->hasRole('super-admin');
     }
 

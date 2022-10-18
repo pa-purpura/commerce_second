@@ -56,7 +56,7 @@
                 <span class="app-menu__label">Settings</span>
             </a>
         </li>
-        @role('super-admin')
+        {{-- @role('super-admin') --}}
         <li>
             <a class="app-menu__item" href="{{ route('admin.roles.index') }}"><i class="app-menu__icon fa fa-briefcase"></i>
                 <span class="app-menu__label">Roles</span>
@@ -68,7 +68,7 @@
                 <span class="app-menu__label">Permissions</span>
             </a>
         </li>
-        @endrole
+        {{-- @endrole --}}
 
 
         {{--

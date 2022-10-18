@@ -163,7 +163,6 @@ class UserController extends Controller
         }
 
         $user->delete($id);
-
         return back();
     }
 }
