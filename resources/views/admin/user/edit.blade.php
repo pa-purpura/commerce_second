@@ -28,7 +28,7 @@
                         <div class="tile">
                             <h3 class="tile-title">Edit User</h3>
 
-                            <form class="form-horizontal" action="{{ route('admin.user.update', $user) }}" method="post"
+                            <form class="form-horizontal" action="{{ route('admin.user.update', $user->id) }}" method="post"
                                 enctype="multipart/form-data">
                                 @method('PUT')
                                 @csrf
@@ -70,7 +70,7 @@
                                         >{{ $role->name }}</option>
                                     @endforeach
                                 </select>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary mt-2">Submit</button>
                             </div>
                         </form>
                         <div class="col-md-6">
@@ -131,7 +131,7 @@
                                         >{{ $permission->name }}</option>
                                     @endforeach
                                 </select>
-                                <button class="btn btn-primary" type="submit">Submit</button>
+                                <button class="btn btn-primary mt-2" type="submit">Submit</button>
                         </form>
                     </div>
 

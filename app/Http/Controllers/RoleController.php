@@ -16,7 +16,7 @@ class RoleController extends Controller
 
     public function index()
     {
-        $this->authorize('super-admin');
+        // $this->authorize('super-admin');
         $roles = Role::all();
         return view('admin.roles.index', compact('roles'));
     }
@@ -52,6 +52,12 @@ class RoleController extends Controller
         return redirect()->route('admin.roles.index')->with('success', 'Action completed');
     }
 
+    public function destroy(Role $role)
+    {
+        $role->delete();
+        return redirect()->route('admin.roles.index')->with('success', 'Role deleted successfully');
+    }
+
     public function deleteRole($id, $role)
     {
         $role_to_delete = DB::table('model_has_roles')->where('model_id', $id)->where('role_id', $role)->delete();
@@ -65,29 +71,15 @@ class RoleController extends Controller
 
     }
 
-    public function assignRole(Request $request, $id)
-    {
-        $user = User::find($id);
-        $data = $request->except('_token');
+    // public function assignRole(Request $request, $id)
+    // {
+    //     $user = User::find($id);
+    //     $data = $request->except('_token');
 
-        foreach ($data as $key => $value) {
-            $user->assignRole($value);
-        }
-        return redirect()->back()
-            ->with('success', 'Ruoli utente aggiornati con successo');
-    }
-
-    // public function createSuperAdmin(){
-    //     $superAdmin = User::create([
-    //         'id' => 5,
-    //         'name' => 'Super Admin',
-    //         'email' => 'admin@gmail.com',
-    //         'password' => Hash::make('password'),
-    //         'email_verfied_at' => now(),
-    //     ]);
-
-    //     $superAdmin->assignRole('super-admin');
-
-    //     return back();
+    //     foreach ($data as $key => $value) {
+    //         $user->assignRole($value);
+    //     }
+    //     return redirect()->back()
+    //         ->with('success', 'Ruoli utente aggiornati con successo');
     // }
 }

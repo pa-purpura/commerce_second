@@ -70,7 +70,6 @@
                         @method('POST')
                         @csrf
                         <button class="dropdown-item" type="submit"><i class="fa fa-sign-out fa-lg"></i> Logout</button>
-
                     {{-- <a class="dropdown-item" href=""><i class="fa fa-sign-out fa-lg"></i> Logout</a> --}}
                 </form>
                 </li>

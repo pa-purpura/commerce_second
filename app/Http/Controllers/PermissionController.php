@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 
 
 
@@ -17,7 +19,8 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        //
+        $permissions = Permission::all();
+        return view('admin.permissions.index', compact('permissions'));
     }
 
     /**
@@ -27,7 +30,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.permissions.create');
     }
 
     /**
@@ -38,7 +41,11 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $permission = new Permission;
+        $permission->fill($request->all());
+        $permission->save();
+
+        return redirect()->route('admin.permissions.index')->with('success', 'permission created successfully');
     }
 
     /**
@@ -58,9 +65,9 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Permission $permission)
     {
-        //
+        return view('admin.permissions.edit', compact('permission'));
     }
 
     /**
@@ -72,7 +79,10 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $permission = Permission::findOrFail($id);
+        $permission->fill($request->all());
+        $permission->save();
+        return redirect()->route('admin.permissions.index')->with('success', 'Action completed');
     }
 
     /**
@@ -81,9 +91,10 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Permission $permission)
     {
-        //
+        $permission->delete();
+        return redirect()->route('admin.permissions.index')->with('success', 'Permission deleted successfully');
     }
 
     public function deletePermission($id, $permission)

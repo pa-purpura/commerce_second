@@ -6,7 +6,7 @@
                 <div class="form-group">
                     <label class="control-label">Name</label>
                     <input class="form-control" type="text" placeholder="Enter name" name="name"
-                        value="{{ old('rating', isset($role) ? $role->name : '') }}">
+                        value="{{ old('name', isset($role) ? $role->name : '') }}">
                     @error('name')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror

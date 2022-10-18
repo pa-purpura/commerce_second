@@ -119,7 +119,6 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete($id);
-
         return back();
     }
 }

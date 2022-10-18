@@ -35,7 +35,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('seeReviews/{product}', [ProductController::class, 'seeReviews'])->name('seeReviews');
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
-    // Route::get('createSuperAdmin', [RoleController::class, 'createSuperAdmin'])->name('createSuperAdmin');
+    Route::get('createSuperAdmin', [RoleController::class, 'createSuperAdmin'])->name('createSuperAdmin');
     Route::get('deleteRole/{id}/{role}', [RoleController::class, 'deleteRole'])->name('deleteRole');
     Route::get('assignRole/{id}', [RoleController::class, 'assignRole'])->name('assignRole');
     Route::get('deleteAllRoles/{id}', [RoleController::class, 'deleteAllRoles'])->name('deleteAllRoles');
