@@ -25,11 +25,9 @@ class User extends Authenticatable
         'address',
         'birthdate',
         'password',
+        'img_name',
+        'img_path',
     ];
-
-    public function orders() {
-        return $this->hasMany(Order::class);
-    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -40,7 +38,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
+    
     /**
      * The attributes that should be cast.
      *
@@ -49,8 +47,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
+    
     public function cart(){
         return $this->belongsTo(Cart::class);
+    }
+    
+    public function orders() {
+        return $this->hasMany(Order::class);
+    }
+
+    public function wishlists() {
+        return $this->hasMany(Wishlist::class);
     }
 }

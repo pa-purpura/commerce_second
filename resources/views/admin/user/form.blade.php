@@ -95,4 +95,14 @@
             <div class="alert alert-danger mt-2">{{ $message }}</div>
         @enderror
     </div>
+
+    <div class="form-group row">
+        <label class="control-label col-md-3">Immagine prodotto</label>
+        <div class="col-md-8">
+            <input class="form-control" type="file" name="image">
+        </div>
+    </div>
+    @error('image')
+    <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
 </div>

@@ -4,22 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Product;
 
-class Cart extends Model
+class Wishlist extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'user_id'
+        'name',
+        'user_id',
     ];
 
-    public function user(){
-        return $this->hasOne(User::class);
+    public function user() {
+        return $this->belongsTo(User::class);
     }
 
-    public function products(){
+    public function products() {
         return $this->belongsToMany(Product::class);
     }
-
 }

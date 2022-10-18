@@ -9,7 +9,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\PermissionController;
-
+use App\Http\Controllers\WishlistController;
 
 
 /*
@@ -22,6 +22,7 @@ use App\Http\Controllers\PermissionController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 
 Route::prefix('admin')->name('admin.')->group(function () {
 
@@ -43,6 +44,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('assignPermission/{id}', [PermissionController::class, 'assignPermission'])->name('assignPermission');
     Route::get('deleteAllPermissions/{id}', [PermissionController::class, 'deleteAllPermissions'])->name('deleteAllPermissions');
 });
-
 
 require __DIR__ . '/auth.php';
