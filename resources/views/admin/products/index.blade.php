@@ -30,6 +30,7 @@
                                     <th>Descrizione</th>
                                     <th>Prezzo</th>
                                     <th>Stock</th>
+                                    <th>Venditore</th>
                                     <th>Azioni</th>
                                 </tr>
                             </thead>
@@ -51,6 +52,7 @@
                                         <td class="align-middle">{{ Str::limit($product->description, 60) }}</td>
                                         <td class="align-middle">{{ $product->price }} €</td>
                                         <td class="align-middle">{{ $product->stock }}</td>
+                                        <td class="align-middle"><span class="badge badge-success">{{ $product->seller->name }}</span></td>
                                         <td class="d-flex justify-content-center">
                                             <a href="{{ route('admin.products.show', $product->id) }}">
                                                 <button class="btn btn-sm btn-info mr-1"><i class="fa fa-eye"
