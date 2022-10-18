@@ -51,3 +51,22 @@
 @error('image')
 <div class="alert alert-danger">{{ $message }}</div>
 @enderror
+
+<div class="form-group row">
+<label class="control-label col-md-3">Venditore</label>
+<select class="form-select" aria-label="Default select example" name="seller_id">
+    <option value="">Select one Product</option>
+    @foreach ($sellers as $seller)
+        <option
+            @if (isset($product)) value="{{ old('seller_id', $seller->id) }}"
+                        @selected($product->seller_id == $seller->id)
+                        @else
+                        value="{{ $seller->id }}" @endif>
+            {{ $seller->name }}
+        </option>
+    @endforeach
+</select>
+</div>
+@error('seller_id')
+    <div class="alert alert-danger">{{ $message }}</div>
+@enderror
