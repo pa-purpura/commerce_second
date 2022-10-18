@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Review;
+use App\Models\Seller;
 use App\Models\Wishlist;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -21,7 +22,7 @@ class ProductController extends Controller
     public function index()
     {
         
-        $products = Product::orderBy('id', 'DESC')->get();
+        $products = Product::orderBy('id', 'DESC')->with('seller')->get();
 
         return view('admin.products.index', compact('products'));
     }
@@ -40,7 +41,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.products.create');
+        $sellers = Seller::all();
+        return view('admin.products.create', compact('sellers'));
     }
 
     /**
@@ -82,6 +84,7 @@ class ProductController extends Controller
         $new_product = new Product();
         $new_product->img_name = $image;
         $new_product->img_path = $path;
+        $new_product->seller_id = $request->seller_id;
         $new_product->fill($data);
         $new_product->save();
 
@@ -114,8 +117,9 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Product $product)
-    {
-        return view('admin.products.edit', compact('product'));
+    { 
+        $sellers = Seller::all();
+        return view('admin.products.edit', compact('product','sellers'));
     }
 
     /**
@@ -164,6 +168,7 @@ class ProductController extends Controller
             'description' => $request->description,
             'img_name' => $image,
             'img_path' => $path,
+            'seller_id' => $request->seller_id
         ]);
 
         return redirect()->route('admin.products.index')->with('success', "Il prodotto $product->name è stato aggiornato");
