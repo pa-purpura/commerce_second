@@ -26,24 +26,35 @@
             <div class="tile-body">
                 <form method="POST" action="{{ route('register') }}" class="login-form">
                     @csrf
-
                     <!-- Name -->
                     <div>
                         <x-input-label for="name" :value="__('Name')" />
-
                         <x-text-input id="name" class="block mt-1 w-full form-control" type="text" name="name"
                             :value="old('name')" required autofocus />
-
                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                     </div>
+
+                    <!-- Surname -->
+                    <div>
+                        <x-input-label for="surname" :value="__('Surname')" />
+                        <x-text-input id="surname" class="block mt-1 w-full form-control" type="text" name="surname"
+                            :value="old('surname')" required autofocus />
+                        <x-input-error :messages="$errors->get('surname')" class="mt-2" />
+                    </div>
+
+                    <!-- Bithday -->
+                    {{-- <div>
+                        <x-input-label for="birthdate" :value="__('Birthdate')" />
+                        <x-text-input id="birthdate" class="block mt-1 w-full form-control" type="date" name="birthdate"
+                            :value="old('birthdate')" required autofocus />
+                        <x-input-error :messages="$errors->get('birthdate')" class="mt-2" />
+                    </div> --}}
 
                     <!-- Email Address -->
                     <div class="mt-4">
                         <x-input-label for="email" :value="__('Email')" />
-
                         <x-text-input id="email" class="block mt-1 w-full form-control" type="email" name="email"
                             :value="old('email')" required />
-
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     </div>
 
